@@ -2,6 +2,7 @@ const express = require("express")
 const app = express()
 const path = require('path');
 
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend/public')));
 
@@ -16,6 +17,10 @@ const knex = require('knex')({
         port: 5432
     }
 });
+
+const bcrypt = require('bcrypt');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 // app.get("/api/jobs",function(request, response){
 
@@ -39,7 +44,7 @@ const knex = require('knex')({
 //   ]);
 // });
 
-
+// --------------------------- All Jobs ---------------------------------
 app.get("/api/jobs", async (req, res) => {
   try {
     const jobs = await knex("jobs as j")
@@ -61,7 +66,20 @@ app.get("/api/jobs", async (req, res) => {
   }
 });
 
+// ---------------------------Latest Jobs---------------------------------
 
+app.get("/api/jobs/latest", function(request, response) {
+knex("jobs").select("*").orderBy("published_date","desc").limit(5)
+    .then(data => {
+      response.json(data);
+    })
+    .catch(err => {
+      console.error("Unable to display Latest Jobs",err);
+      response.status(500).json({ ok:false,message: "Server Error" });
+    });
+});
+
+// --------------------------- By category ---------------------------------
 app.get("/api/jobs/:category_id", function(request, response) {
   const categoryId = Number(request.params.category_id); 
 
@@ -77,6 +95,43 @@ app.get("/api/jobs/:category_id", function(request, response) {
       response.status(500).json({ message: "Server Error" });
     });
 });
+
+app.post("/api/register", function(req,res){
+    console.log("registering new member")
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const email = req.body.email;
+    const password = req.body.password;
+    const confirmPassword = req.body.confirmPassword;
+        if (password !== confirmPassword) {
+        return res.status(400).json({ ok: false, message: 'Passwords do not match' });
+        }
+    const saltRounds = 10;
+    bcrypt.hash(password, saltRounds)
+        .then(function(password_hash) {
+            // Insert into database
+            return knex('users').insert({
+                first_name: firstName,
+                last_name: lastName,
+                email: email,
+                password_hash: password_hash
+            });
+        })
+        .then(function(data) {
+            console.log(data);
+            res.json({ status: "ok", data: data });
+        })
+        .catch(function(err) {
+            console.error(err);
+            res.status(500).json({ ok: false, message: 'Server error or email already exists' });
+        });
+});
+
+
+
+
+
+
 
 // app.post("/api/students", function(request,response){
 //     console.log("receiving student to create")

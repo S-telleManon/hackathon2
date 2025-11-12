@@ -32,18 +32,18 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Browse Jobs</a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="./src/pages/jobscategory/hospitality.html">Hospitality/Travel</a></li>
-                    <li><a class="dropdown-item" href="./src/pages/jobscategory/agriculture.html">Agriculture/Fishing</a></li>
-                    <li><a class="dropdown-item" href="./src/pages/jobscategory/logistics.html">Logistics/Courier</a></li>
-                    <li><a class="dropdown-item" href="./src/pages/jobscategory/finance.html">Finance/Accounting</a></li>
-                    <li><a class="dropdown-item" href="./src/pages/jobscategory/admin.html">Administrative/Clerical</a></li>
-                    <li><a class="dropdown-item" href="./src/pages/jobscategory/marketing.html">Marketing/Advertising</a></li>
-                    <li><a class="dropdown-item" href="./src/pages/jobscategory/construction.html">Construction/Architecture</a></li>
-                    <li><a class="dropdown-item" href="./src/pages/jobscategory/management.html">Management</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="jobs.html">View all categories</a></li>
-                  </ul>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="jobs.html?category_id=1">Hospitality/Travel</a></li>
+                        <li><a class="dropdown-item" href="jobs.html?category_id=2">Agriculture/Fishing</a></li>
+                        <li><a class="dropdown-item" href="jobs.html?category_id=3">Logistics/Courier</a></li>
+                        <li><a class="dropdown-item" href="jobs.html?category_id=4">Finance/Accounting</a></li>
+                        <li><a class="dropdown-item" href="jobs.html?category_id=5">Administrative/Clerical</a></li>
+                        <li><a class="dropdown-item" href="jobs.html?category_id=6">Marketing/Advertising</a></li>
+                        <li><a class="dropdown-item" href="jobs.html?category_id=7">Construction/Architecture</a></li>
+                        <li><a class="dropdown-item" href="jobs.html?category_id=8">Management</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="jobs.html">View all categories</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="savedjobs.html">Saved Jobs</a>
@@ -63,32 +63,34 @@
   </nav>
       <!-- -----------------------Register Page -------------------- -->
   <Section id="Register">
-    <!-- -----------------------Search Jobs -------------------- -->
-    <div class="bckform1">
-        <form class="d-flex">
-          <input class="form-control me-2" type="Text" placeholder="Job or Company" aria-label="Search">
-          <input class="form-control me-2" type="Text" placeholder="Locations" aria-label="Search">
-          <input class="form-control me-2" type="Text" placeholder="Category" aria-label="Search">
-          <button class="btn btn-success p-2 text-nowrap" type="submit">Search</button>
-        </form>
-    </div>
+ 
+
   <!-- -----------------------Photo section - Register page -------------------- -->
-    <div id="image1"><img src="./src/img/pexels-soc-nang-d-ng-2150345854-33328355.jpg" alt="" width="525px" height="750px"></div>
+    <div id="image1"><img src="./src/img/pexels-soc-nang-d-ng-2150345854-33328355.jpg" alt="" width="525px" height="760px"></div>
       <!-- -----------------------Register Container -------------------- -->    
     <div class="register-container">
       <h2>Create an account with us</h2>
       <p>Become part of Mauritius’ leading recruitment platform and gain access to thousands of employers and endless job opportunities. Discover a wealth of resources, practical advice, and tips to help you land your perfect role — plus, create your own personalized profile to get noticed.</p>
-      <form>
-          <input type="text" placeholder="First Name" required />
-          <input type="text" placeholder="Last Name" required /><Br>
-          <input type="email" placeholder="Email Address" required /> <Br>
-          <input type="password" placeholder="Password" required />
-          <input type="password" placeholder="Confirm Password" required /><br>
-          <input type="checkbox" id="password1" name="password1" value="Show Password"><label for="password1">Show Password</label><br><br>
-          <p>Click on <b>Register</b> to agree to Jobspace <b><i>terms,conditions and privacy policy</i></b></p>
-          <p>If you need more information on a job or having any doubt please contact us. We will be happy to assist you</p>
-          <button type="submit">Register <i class="bi bi-person-plus"></i></button>
-      </form>
+    <form id="registerForm">
+        <input type="text" name="firstName" placeholder="First Name" required />
+        <input type="text" name="lastName" placeholder="Last Name" required /><br>
+        <input type="email" name="email" placeholder="Email Address" required /><br>
+        <div class="password-field" style="position: relative; margin-bottom: 15px;">
+            <input type="password" name="password" id="password" placeholder="Password" style="padding-right: 40px;">
+            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" style="padding-right: 40px;">
+            <!-- single eye icon to toggle both -->
+            </div>
+      <div>
+        <i i class="bi bi-eye-slash" id="togglePassword" style=" transform: translateY(-50%); cursor: pointer;"></i>
+        <label for="showPassword">Show Password</label><br><br>
+        </div>
+        <p>Click on <b>Register</b> to agree to Jobspace <b><i>terms, conditions and privacy policy</i></b></p>
+        <p>If you need more information on a job or have any doubt please contact us. We will be happy to assist you.</p>
+        <button type="submit">Register <i class="bi bi-person-plus"></i></button>
+    </form>
     </div>
   </Section>
+
 </body>
+<script src="/register.js"></script>
+</html>
