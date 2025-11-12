@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/src/style.css">
+    <link rel="stylesheet" href="savedjobs.html">
+    <link rel="stylesheet" href="jobs.html">
+    <link rel="stylesheet" href="appliedjobs.html">    
+    <style>
+    body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #cccccc;
+    }
+    </style>
+</head>
+<body>
+        <!-- -----------------------Navbar Section -------------------- -->
+  <nav class="navbar navbar-expand-lg navbar-dark text-dark py-2">
+    <div class="container-fluid">
+          <div class="header_logocontainer">
+            <div class="headerimg">
+                <a href="index.html"><img src="./src/img/job.jpg" class="job_logo" width="60px" height="60px" alt=""></a>
+            </div>
+          </div>
+          <div class="navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Browse Jobs</a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="./src/pages/jobscategory/hospitality.html">Hospitality/Travel</a></li>
+                    <li><a class="dropdown-item" href="./src/pages/jobscategory/agriculture.html">Agriculture/Fishing</a></li>
+                    <li><a class="dropdown-item" href="./src/pages/jobscategory/logistics.html">Logistics/Courier</a></li>
+                    <li><a class="dropdown-item" href="./src/pages/jobscategory/finance.html">Finance/Accounting</a></li>
+                    <li><a class="dropdown-item" href="./src/pages/jobscategory/admin.html">Administrative/Clerical</a></li>
+                    <li><a class="dropdown-item" href="./src/pages/jobscategory/marketing.html">Marketing/Advertising</a></li>
+                    <li><a class="dropdown-item" href="./src/pages/jobscategory/construction.html">Construction/Architecture</a></li>
+                    <li><a class="dropdown-item" href="./src/pages/jobscategory/management.html">Management</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="jobs.html">View all categories</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="savedjobs.html">Saved Jobs</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="appliedjobs.html">Applied Jobs</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="register.html">Register</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="login.html">Login</a>
+                </li>
+            </ul>
+          </div>
+    </div>
+  </nav>
+      <!-- -----------------------Register Page -------------------- -->
+  <Section id="Register">
+    <!-- -----------------------Search Jobs -------------------- -->
+    <div class="bckform1">
+        <form class="d-flex">
+          <input class="form-control me-2" type="Text" placeholder="Job or Company" aria-label="Search">
+          <input class="form-control me-2" type="Text" placeholder="Locations" aria-label="Search">
+          <input class="form-control me-2" type="Text" placeholder="Category" aria-label="Search">
+          <button class="btn btn-success p-2 text-nowrap" type="submit">Search</button>
+        </form>
+    </div>
+  <!-- -----------------------Photo section - Register page -------------------- -->
+    <div id="image1"><img src="./src/img/pexels-soc-nang-d-ng-2150345854-33328355.jpg" alt="" width="525px" height="750px"></div>
+      <!-- -----------------------Register Container -------------------- -->    
+    <div class="register-container">
+      <h2>Create an account with us</h2>
+      <p>Become part of Mauritius’ leading recruitment platform and gain access to thousands of employers and endless job opportunities. Discover a wealth of resources, practical advice, and tips to help you land your perfect role — plus, create your own personalized profile to get noticed.</p>
+      <form>
+          <input type="text" placeholder="First Name" required />
+          <input type="text" placeholder="Last Name" required /><Br>
+          <input type="email" placeholder="Email Address" required /> <Br>
+          <input type="password" placeholder="Password" required />
+          <input type="password" placeholder="Confirm Password" required /><br>
+          <input type="checkbox" id="password1" name="password1" value="Show Password"><label for="password1">Show Password</label><br><br>
+          <p>Click on <b>Register</b> to agree to Jobspace <b><i>terms,conditions and privacy policy</i></b></p>
+          <p>If you need more information on a job or having any doubt please contact us. We will be happy to assist you</p>
+          <button type="submit">Register <i class="bi bi-person-plus"></i></button>
+      </form>
+    </div>
+  </Section>
+</body>

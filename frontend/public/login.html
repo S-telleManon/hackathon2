@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/src/style.css">
+    <link rel="stylesheet" href="register.html">
+    <link rel="stylesheet" href="savedjobs.html">
+    <link rel="stylesheet" href="jobs.html">
+    <link rel="stylesheet" href="appliedjobs.html">    
+      <style>
+        body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #cccccc;
+        position: relative;
+        min-height: 100vh;
+        /* overflow: hidden; */
+        }
+
+        body::before {
+        content: "";
+        position: fixed; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url(./src/img/layers-green-papers-creating-abstract-arrows.jpg) no-repeat center center/cover;
+        opacity: 0.5; 
+        z-index: -1; 
+        }
+      </style>
+</head>
+<body>
+  <!-- -----------------------Navbar Section -------------------- -->
+    <nav class="navbar navbar-expand-lg navbar-dark text-dark py-2">
+      <div class="container-fluid">
+          <div class="header_logocontainer">
+            <div class="headerimg">
+                <a href="index.html"><img src="./src/img/job.jpg" class="job_logo" width="60px" height="60px" alt=""></a>
+            </div>
+          </div>
+          <div class="navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Browse Jobs</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="./src/pages/jobscategory/hospitality.html">Hospitality/Travel</a></li>
+                      <li><a class="dropdown-item" href="./src/pages/jobscategory/agriculture.html">Agriculture/Fishing</a></li>
+                      <li><a class="dropdown-item" href="./src/pages/jobscategory/logistics.html">Logistics/Courier</a></li>
+                      <li><a class="dropdown-item" href="./src/pages/jobscategory/finance.html">Finance/Accounting</a></li>
+                      <li><a class="dropdown-item" href="./src/pages/jobscategory/admin.html">Administrative/Clerical</a></li>
+                      <li><a class="dropdown-item" href="./src/pages/jobscategory/marketing.html">Marketing/Advertising</a></li>
+                      <li><a class="dropdown-item" href="./src/pages/jobscategory/construction.html">Construction/Architecture</a></li>
+                      <li><a class="dropdown-item" href="./src/pages/jobscategory/management.html">Management</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="jobs.html">View all categories</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="savedjobs.html">Saved Jobs</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="appliedjobs.html">Applied Jobs</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="register.html">Register</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="login.html">Login</a>
+                </li>
+            </ul>
+          </div>
+      </div>
+    </nav>
+  <!-- -----------------------Login Page - Search Part--------------------- -->
+  <Section id="Login">
+    <div class="bckform1">
+        <form class="d-flex">
+          <input class="form-control me-2" type="Text" placeholder="Job or Company" aria-label="Search">
+          <input class="form-control me-2" type="Text" placeholder="Locations" aria-label="Search">
+          <input class="form-control me-2" type="Text" placeholder="Category" aria-label="Search">
+          <button class="btn btn-success p-2 text-nowrap" type="submit">Search</button>
+        </form>
+    </div>
+      <!-- -----------------------Login Section - Login Container--------------------- -->
+    <div class="login-container">
+      <h2>Login to your Account</h2>
+        <form>
+          <input type="text" placeholder="Username" required /><br>
+          <input type="password" placeholder="Password" required /><br>
+          <button type="submit">Login <i class="bi bi-box-arrow-in-right"></i></button>
+        </form>
+      <p>Forgot your password?</p>
+    </div>
+  <!-- -----------------------Login Section - Register Container--------------------- -->
+    <div class="headerlog">
+      <span id="headerlogin">Not a member yet?</span><br>
+      <span id="headersublogin">Become part of Mauritius’ leading recruitment platform and connect with thousands of employers and endless job opportunities.<br><br>Gain access to valuable resources, expert tips to land your dream job, and create your own personalized profile to showcase your skills.</span>
+      <a href="register.html"><button type="submit">Register <i class="bi bi-person-plus"></i></button></a>
+    </div>
+  </Section>
+</body>

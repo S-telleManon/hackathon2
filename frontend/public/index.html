@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobSpace</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/src/style.css">
+    <link rel="stylesheet" href="login.html">
+    <link rel="stylesheet" href="register.html">
+    <link rel="stylesheet" href="savedjobs.html">
+    <link rel="stylesheet" href="jobs.html">
+    <link rel="stylesheet" href="appliedjobs.html">    
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark text-dark py-2">
+      <div class="container-fluid">
+        <div class="header_logocontainer">
+          <div class="headerimg">
+              <a href="index.html"><img src="./src/img/job.jpg" class="job_logo" width="60px" height="60px" alt=""></a>
+          </div>
+        </div>
+      <div class="navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Browse Jobs</a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="./src/pages/jobscategory/hospitality.html">Hospitality/Travel</a></li>
+                <li><a class="dropdown-item" href="./src/pages/jobscategory/agriculture.html">Agriculture/Fishing</a></li>
+                <li><a class="dropdown-item" href="./src/pages/jobscategory/finance.html">Finance/Accounting</a></li>
+                <li><a class="dropdown-item" href="./src/pages/jobscategory/admin.html">Administrative/Clerical</a></li>
+                <li><a class="dropdown-item" href="./src/pages/jobscategory/marketing.html">Marketing/Advertising</a></li>
+                <li><a class="dropdown-item" href="./src/pages/jobscategory/construction.html">Construction/Architecture</a></li>
+                <li><a class="dropdown-item" href="./src/pages/jobscategory/management.html">Management</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="jobs.html">View all categories</a></li>
+              </ul>
+            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="savedjobs.html">Saved Jobs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="appliedjobs.html">Applied Jobs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="register.html">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">Login</a>
+          </li>
+        </ul>
+      </div>
+      </div>
+    </nav>
+<Section id="searchheader">
+  <!-- ----------video-background-section-------------- -->
+    <div class="video1">
+      <video autoplay muted loop id="myVideo" height="35%" width="90%">
+        <source src="../src/video/MicrosoftTeams-video.mp4" type="video/mp4">
+      </video>
+    </div>
+    <!-- ----------heading main on top of video------------- -->
+    <div class="textcontainer">
+      <H1>Don't wait and Connect to your <span id="textemphasis">new DREAM job </span>now!</H1>
+      <span id="textsub">"The future belongs to those who believe in the beauty of their dreams."-Eleanor Roosevelt</span>
+    </div>
+<!-- -----------------------Search Bar Section --------------------
+    <section id="searchbar">
+        <div class="bckform">
+            <form class="d-flex justify-content-center" onsubmit="return false;"> <!-- prevent form submit -->
+                <!-- <input class="form-control text-center  me-5" id="jobSearch" type="text" placeholder="Search by Job or Company or Location" aria-label="Search">
+            </form>
+        </div> -->
+    <!-- </section> --> 
+      <!-- ----------containers on the main page Login/register/contact------------- -->
+    <div class="gridcontainer">
+      <div id="firstcontainer">
+        <div class="containertextheader">Login to your account</div>
+        <div class="containertext">You will need your email address previously registered and your password</div><br>
+        <div class="containerbtn"><a href="login.html"><button type="button" class="btn btn-success"> Login <i class="bi bi-box-arrow-in-right"></i></button></div></a>
+      </div>
+      <div id="secondcontainer">
+        <div class="containertextheader">Create a new Account</div>
+        <div class="containertext">You may create an account to save and apply for job openings</div><br>
+        <div class="containerbtn"><a href="register.html"><button type="button" class="btn btn-success"> Register <i class="bi bi-person-plus"></i></button></div></a>
+      </div>
+      <div id="thirdcontainer">
+        <div class="containertextheader">Contact us</div>
+        <div class="containertext">Contact us and we will help you find the right job for you</div><br>
+        <div class="containerbtn"><a href="#contactpage"><button type="button" class="btn btn-success"> Contact <i class="bi bi-telephone"></i></button></div></a>
+      </div>
+    </div>
+</Section>
+  <!-- ----------Latest Jobs part-------------- -->
+<section id="secondpart">
+  <div class="image2">
+    <img src="./src/img/layers-green-papers-creating-abstract-arrows.jpg" alt="" width="100%" height="1000">
+  </div>
+<div class="secondpartcontainer">  
+    <div class="headerinfo">LATEST JOBS THAT MIGHT INTEREST YOU</div>
+    <div id="excess"><i class="bi bi-caret-down"></i></div>
+      <div class="joboppor">
+        <div class="headersub">Sales Operation Specialist</div>
+        <div class="headersub1">Mahebourg</div>
+      </div>
+     <div class="cvbtn"><a href="./src/pages/jobdetails/salesops.html"><button type="button" class="btn btn-success">More details</button></div></a>
+      <div class="joboppor">
+        <div class="headersub">Import Support Clerk</div>
+        <div class="headersub1">Moka</div>
+      </div>
+    <div class="cvbtn"><a href="./src/pages/jobdetails/importsupport.html"><button type="button" class="btn btn-success">More details</button></div></a>
+      <div class="joboppor">
+        <div class="headersub">Finance and Admin Manager</div>
+        <div class="headersub1">Flacq</div>
+      </div>
+     <div class="cvbtn"><a href="./src/pages/jobdetails/fnamanager.html"><button type="button" class="btn btn-success">More details</button></div></a>
+      <div class="joboppor">
+        <div class="headersub">Driver</div>
+        <div class="headersub1">Port Louis</div>
+      </div>
+     <div class="cvbtn"><a href="./src/pages/jobdetails/driver.html"><button type="button" class="btn btn-success">More details</button></div></a>
+      <div class="joboppor">
+        <div class="headersub">Bartender</div>
+        <div class="headersub1">Riviere du Rempart</div>
+      </div>
+     <div class="cvbtn"><a href="./src/pages/jobdetails/bartender.html"><button type="button" class="btn btn-success">More details</button></div></a>
+      <div class="joboppor">
+        <div class="headersub2">Find more jobs avalable here! <i class="bi bi-arrow-right-circle"></i></div><br>
+      </div>
+      <div class="cvbtn"><a href="./jobs.html"><button type="button" class="btn btn-dark">View</button></div></a>
+  </div>
+</section>
+  <!-- ----------Contact Page Section-------------- -->
+<section id="contactpage">
+    <div class="contact-container">
+      <h2>Contact Us</h2>
+      <form id="contactForm">
+        <input type="text" placeholder="Your Name" required /><br>
+        <input type="email" placeholder="Your Email" required /><br>
+        <input type="tel" placeholder="Your Phone Number" required /><br>
+        <textarea placeholder="Your Message" rows="4" required></textarea><br>
+        <button type="submit">Send Message</button>
+      </form>
+      <div class="success-message" id="successMessage">Thank you! Your message has been sent successfully.</div>
+    </div>
+    <div class="image3">
+      <img src="./src/img/pexels-energepic-com-27411-313690.jpg" alt="" width="600px" height="500px">
+    </div>
+    <div id="triangle-right"></div>
+</section>
+    <footer>
+        <div class="footer-top">
+            <p id="headerfoot">Job<strong>Space</strong></p>
+            <p id="subtitle2">Find your <span id="focus"><b>DREAM</b></span> job with one click!!</p>
+            <p id="subtitle">Website done by Estelle</p>
+        </div>
+    </footer>
+</body>
+</html>
