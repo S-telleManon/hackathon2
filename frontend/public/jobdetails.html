@@ -3,25 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Alljobs</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="/src/style.css">
-    <link rel="stylesheet" href="register.html">
     <link rel="stylesheet" href="savedjobs.html">
-    <link rel="stylesheet" href="jobs.html">
+    <link rel="stylesheet" href="index.html">
     <link rel="stylesheet" href="appliedjobs.html">    
-      <style>
+        <style>
         body {
         margin: 0;
         font-family: Arial, sans-serif;
         background-color: #cccccc;
-        position: relative;
-        min-height: 100vh;
-        /* overflow: hidden; */
         }
-
         body::before {
         content: "";
         position: fixed; 
@@ -29,15 +24,16 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: url(./src/img/layers-green-papers-creating-abstract-arrows.jpg) no-repeat center center/cover;
+        background: url(./src/img/pexels-artempodrez-6990470.jpg) no-repeat center center/cover;
         opacity: 0.5; 
         z-index: -1; 
         }
-      </style>
+        </style>
 </head>
+
 <body>
-  <!-- -----------------------Navbar Section -------------------- -->
-<nav class="navbar navbar-expand-lg navbar-dark text-dark py-2">
+        <!-- -----------------------Navbar Section -------------------- -->
+ <nav class="navbar navbar-expand-lg navbar-dark text-dark py-2">
   <div class="container-fluid">
     <div class="header_logocontainer">
       <div class="headerimg">
@@ -66,9 +62,6 @@
           </ul>
         </li>
 
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="savedjobs.html">Saved Jobs</a>
-        </li> -->
         <li class="nav-item">
           <a class="nav-link" href="appliedjobs.html">Applied Jobs</a>
         </li>
@@ -88,27 +81,78 @@
     </div>
   </div>
 </nav>
-  <!-- -----------------------Login Page - Search Part--------------------- -->
-  <Section id="Login">
 
-      <!-- -----------------------Login Section - Login Container--------------------- -->
-    <div class="login-container">
-      <h2>Login to your Account</h2>
-  <form id="loginForm">
-    <input type="text" name="email" id="email" placeholder="Email" required /><br>
-    <input type="password" name="password" id="password" placeholder="Password" required /><br>
-    <button type="submit">Login <i class="bi bi-box-arrow-in-right"></i></button>
-  </form>
-      <!-- <p>Forgot your password?</p> -->
-      <div id="loginStatus" style="margin-top:20px;"></div>
+<!-- /*--------filter on the Jobs page --------------*/ -->
+    <section id="filter">
+    <div id="filtercontainer">
+    <div class="headerinfo">CATEGORIES</div>
+<ul id="listing1">
+  <li><a class="dropdown-item" href="jobs.html?category_id=1">Hospitality/Travel</a></li>
+  <li><a class="dropdown-item" href="jobs.html?category_id=2">Agriculture/Fishing</a></li>
+  <li><a class="dropdown-item" href="jobs.html?category_id=3">Logistics/Courier</a></li>
+  <li><a class="dropdown-item" href="jobs.html?category_id=4">Finance/Accounting</a></li>
+  <li><a class="dropdown-item" href="jobs.html?category_id=5">Administrative/Clerical</a></li>
+  <li><a class="dropdown-item" href="jobs.html?category_id=6">Marketing/Advertising</a></li>
+  <li><a class="dropdown-item" href="jobs.html?category_id=7">Construction/Architecture</a></li>
+  <li><a class="dropdown-item" href="jobs.html?category_id=8">Management</a></li>
+</ul>
+    <div class="headersub1"><a class="dropdown-item" href="jobs.html">View all categories</a></div>
+
     </div>
-  <!-- -----------------------Login Section - Register Container--------------------- -->
-    <div class="headerlog">
-      <span id="headerlogin">Not a member yet?</span><br>
-      <span id="headersublogin">Become part of Mauritius’ leading recruitment platform and connect with thousands of employers and endless job opportunities.<br><br>Gain access to valuable resources, expert tips to land your dream job, and create your own personalized profile to showcase your skills.</span>
-      <a href="register.html"><button type="button">Register <i class="bi bi-person-plus"></i></button></a>
-    </div>
-  </Section>
-  <script src="login.js"></script>
+    </section>
+
+
+<!-- /*--------Jobs--------------*/ -->
+
+<section id="jobcontainer1">
+<div id="job-details"></div>
+</section>
 </body>
+<script>
+
+  // Fetch job details for id=11
+
+  // Get job ID from URL query param
+  const urlParams = new URLSearchParams(window.location.search);
+  const jobId = urlParams.get('id');
+
+  fetch(`/api/jobs/id/${jobId}`)
+    .then(res => res.json())
+    .then(job => {
+      const responsibilities = job.key_responsibilities.split('\n').filter(r => r.trim() !== '');
+      const skills = job.required_skills.split('\n').filter(s => s.trim() !== '');
+
+      document.getElementById('job-details').innerHTML = `
+        <h1 id="job-title">${job.title}</h1>
+        <h2>${job.company_name || 'Company Name'}</h2>
+        <p>
+        <strong>Salary:</strong> ${job.salary} | 
+        <strong>Published Date:</strong> ${new Date(job.published_date).toLocaleDateString('en-GB')} | 
+        <strong>Location:</strong> ${job.location} | 
+        <strong>Deadline:</strong> ${new Date(job.deadline).toLocaleDateString('en-GB')}
+        </p>
+
+        <h3>Key Responsibilities</h3>
+        <ul>
+          ${responsibilities.map(r => `<li>${r}</li>`).join('')}
+        </ul>
+
+        <h3>Required Skills</h3>
+        <ul>
+          ${skills.map(s => `<li>${s}</li>`).join('')}
+        </ul><br>
+        <button type="button" class="btn btn-success" id="applyBtn">
+            Apply Now <i class="bi bi-arrow-down-right-square"></i>
+        </button>
+      `;
+    })
+    .catch(err => {
+      document.getElementById('job-details').innerHTML = `<p>Error loading job details.</p>`;
+      console.error(err);
+    });
+    
+    
+</script>
+<script src="login.js"></script>
+
 </html>

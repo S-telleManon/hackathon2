@@ -44,19 +44,19 @@
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="jobs.html">View all categories</a></li>
                     </ul>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="savedjobs.html">Saved Jobs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="appliedjobs.html">Applied Jobs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="register.html">Register</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="login.html">Login</a>
-                </li>
+          <li class="nav-item">
+            <a class="nav-link" href="appliedjobs.html">Applied Jobs</a>
+          </li>
+
+        
+          <li class="nav-item" id="navbarUserStatus" style="display:none;">
+            <span class="nav-link" id="navbarStatus"></span>
+          </li>
+
+          
+          <li class="nav-item">
+            <a class="nav-link" href="login.html" id="navbarLoginBtn">Login</a>
+          </li>
             </ul>
           </div>
     </div>
@@ -86,6 +86,9 @@
         </div>
         <p>Click on <b>Register</b> to agree to Jobspace <b><i>terms, conditions and privacy policy</i></b></p>
         <p>If you need more information on a job or have any doubt please contact us. We will be happy to assist you.</p>
+        <p style="text-align: center; margin-top: 10px;">
+          Already have an account? <a href="login.html">Login here</a>
+        </p>
         <button type="submit">Register <i class="bi bi-person-plus"></i></button>
     </form>
     </div>
@@ -93,4 +96,5 @@
 
 </body>
 <script src="/register.js"></script>
+<script src="/login.js"></script>
 </html>

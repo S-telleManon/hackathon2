@@ -4,7 +4,7 @@ const path = require('path');
 
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../frontend/public')));
+
 
 
 const knex = require('knex')({
@@ -20,7 +20,14 @@ const knex = require('knex')({
 
 const bcrypt = require('bcrypt');
 app.use(express.urlencoded({ extended: true }));
+
+
+
+
+
+
 app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '../frontend/public')));
 
 // app.get("/api/jobs",function(request, response){
 
@@ -80,21 +87,43 @@ knex("jobs").select("*").orderBy("published_date","desc").limit(5)
 });
 
 // --------------------------- By category ---------------------------------
-app.get("/api/jobs/:category_id", function(request, response) {
-  const categoryId = Number(request.params.category_id); 
+app.get("/api/jobs/category/:category_id", async (req, res) => {
+  const categoryId = Number(req.params.category_id);
+  if (isNaN(categoryId)) return res.status(400).json({ ok: false, message: "Invalid category ID" });
 
-  knex('jobs as j')
-    .leftJoin("companies as co", "j.company_id", "co.id")
-    .select("j.*", "co.name as company_name")
-    .where("j.category_id", categoryId)
-    .then(data => {
-      response.json(data);
-    })
-    .catch(err => {
-      console.error(err);
-      response.status(500).json({ message: "Server Error" });
-    });
+  try {
+    const jobs = await knex('jobs as j')
+      .leftJoin("companies as co", "j.company_id", "co.id")
+      .select("j.*", "co.name as company_name")
+      .where("j.category_id", categoryId);
+
+    res.json(jobs);
+  } catch (err) {
+    console.error("Error fetching jobs by category:", err);
+    res.status(500).json({ message: "Server Error" });
+  }
 });
+// --------------------------- Get job by ID ---------------------------------
+app.get("/api/jobs/id/:id", async (req, res) => {
+  const jobId = Number(req.params.id);
+  if (isNaN(jobId)) return res.status(400).json({ ok: false, message: "Invalid job ID" });
+
+  try {
+    const job = await knex('jobs as j')
+      .leftJoin('companies as co', 'j.company_id', 'co.id')
+      .select('j.*', 'co.name as company_name')
+      .where('j.id', jobId)
+      .first();
+
+    if (!job) return res.status(404).json({ ok: false, message: "Job not found" });
+
+    res.json(job);
+  } catch (err) {
+    console.error("Error fetching job by ID:", err);
+    res.status(500).json({ ok: false, message: "Server Error" });
+  }
+});
+// --------------------------- Register as User ---------------------------------
 
 app.post("/api/register", function(req,res){
     console.log("registering new member")
@@ -128,58 +157,142 @@ app.post("/api/register", function(req,res){
 });
 
 
+// --------------------------- Login  ---------------------------------
+const session = require('express-session');
 
+app.use(session({
+  secret: 'supersecretkey',  // change to a strong secret in production
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false }   // true only if using HTTPS
+}));
 
+app.post("/api/login", function(req,res){
+    console.log("loggin as existing member")
+    const email = req.body.email;
+    const password = req.body.password;
 
-
-
-// app.post("/api/students", function(request,response){
-//     console.log("receiving student to create")
-//     console.log(request.body)
-//     console.log(request.body.name)
-//     // INSERT INTO students (name) VALUES ("Sarah") RETURNING name,id,nic
-//     knex('students').returning(['name', 'id', 'nic']).insert(
-//         {
-//             name:request.body.name,
-//             nic: request.body.nic
-//         }
-//     ).then(data => {console.log(data)
-//         response.json({'status':"ok","data":data})
-//     })
-// })
-
-// app.put("/api/students/:id",(req,res) => {
+    if(!email||!password){
+        return res.status(400).json({ok:false,message:"Email and Password required"})
+    }
     
-//     const student_id = req.params.id
-//     const new_data = req.body
+    knex('users').where({email}).first()
+    .then(function(user){
+        if(!user){
+            return promise.reject({status:401,message:"Email or Password invalid"});
+        }
 
-//     console.log(student_id,new_data)
+        return bcrypt.compare(password, user.password_hash)
+                .then(function (match) {
+            if (!match) {
+            return Promise.reject({ status: 401, message: "Invalid email or password" });
+          }
+          
+          req.session.userId = user.id;
+          req.session.email = user.email;
 
-//     // UPDATE students SET name = "Ritesh Smith" WHERE id = {id}
-//     knex('students').where({id:9}).update(req.body).returning('*').then(function(data){
-//         console.log(data)
-//         res.json({'status':"ok","data":data})
-//     })
-// })
+          
+          return res.json({ ok: true, message: "Login successful", email: user.email});
+        });
+    })
+    .catch(function (err) {
+     
+      if (err && err.status) {
+        return res.status(err.status).json({ ok: false, message: err.message });
+      }
+      console.error('Login error:', err);
+      return res.status(500).json({ ok: false, message: 'Server error' });
+    });
+});
+app.get("/api/check-login", function (req, res) {
+  if (req.session && req.session.userId) {
+    return res.json({
+      ok: true,
+      loggedIn: true,
+      email: req.session.email,
+      role: req.session.role
+    });
+  }
+  return res.json({ ok: true, loggedIn: false });
+});
 
-// app.delete("/api/students/:id", (req,res) => {
-//     const student_id = req.params.id
-//     // DELETE FROM students WHERE id={id}
-//     knex('students').where({id:student_id}).del().then(function(data) {
-//         res.json({'status':"ok"})
-//     })
-// })
+app.post('/api/logout', function(req, res) {
+  if (req.session) {
+    req.session.destroy(function(err) {
+      if (err) {
+        console.error('Logout error:', err);
+        return res.status(500).json({ ok: false, message: 'Could not log out' });
+      }
+      // Optional: clear the cookie
+      res.clearCookie('connect.sid', { path: '/' });
+      return res.json({ ok: true, message: 'Logged out successfully' });
+    });
+  } else {
+    res.json({ ok: true, message: 'No active session' });
+  }
+});
+// --------------------------- Apply for Jobs  ---------------------------------
+function requireLogin(req, res, next) {
+  if (!req.session.userId) {
+    return res.status(401).json({ ok: false, message: "You must be logged in to apply" });
+  }
+  next();
+}
 
-// app.get("/api/posts", (req,res) => {
-//     axios.get('https://jsonplaceholder.typicode.com/posts').then(function(data){
-//         console.log(data['data'])
-//         res.json(data['data'])
-//     })    
-// })
+// Save applied job
+app.post("/api/save-job", requireLogin, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+    const jobId = req.body.job_id;
+
+    if (!jobId) return res.status(400).json({ ok: false, message: "Job ID required" });
+
+    const existing = await knex('applied_jobs').where({ user_id: userId, job_id: jobId }).first();
+
+    if (existing) return res.status(200).json({ ok: false, message: "Already applied" });
+
+    await knex('applied_jobs').insert({ user_id: userId, job_id: jobId });
+
+    return res.json({ ok: true, message: "Job applied successfully" });
+
+  } catch (err) {
+    console.error('Error applying for job:', err);
+    return res.status(500).json({ ok: false, message: "Server error" });
+  }
+});
 
 
+// --------------------------- Get applied jobs for logged-in user ---------------------------------
+app.get("/api/applied-jobs", async (req, res) => {
+  try {
+    
+    const userId = req.session.userId;
+    if (!userId) return res.status(401).json({ ok: false, message: "Not logged in" });
 
-// go to localhost:5005/api/students
+    // Get all applied jobs for this user
+    const appliedJobs = await knex('applied_jobs as a')
+      .leftJoin('jobs as j', 'a.job_id', 'j.id')
+      .leftJoin('companies as co', 'j.company_id', 'co.id')
+      .where('a.user_id', userId)
+      .select(
+        'j.id',
+        'j.title',
+        'j.salary',
+        'j.published_date',
+        'j.deadline',
+        'j.location',
+        'co.name as company_name'
+      )
+      .orderBy('j.published_date', 'desc');
+
+    res.json({ ok: true, jobs: appliedJobs });
+  } catch (err) {
+    console.error("Error fetching applied jobs:", err);
+    res.status(500).json({ ok: false, message: "Server Error" });
+  }
+});
+
+// go to localhost:5005/api/jobs
 app.listen(5005, function(){
     console.log("server is running")
 })

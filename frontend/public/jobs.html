@@ -8,7 +8,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="/src/style.css">
-    <link rel="stylesheet" href="savedjobs.html">
     <link rel="stylesheet" href="index.html">
     <link rel="stylesheet" href="appliedjobs.html">    
         <style>
@@ -33,46 +32,54 @@
 
 <body>
         <!-- -----------------------Navbar Section -------------------- -->
-    <nav class="navbar navbar-expand-lg navbar-dark text-dark py-2">
-        <div class="container-fluid">
-            <div class="header_logocontainer">
-                <div class="headerimg">
-                    <a href="index.html"><img src="./src/img/job.jpg" class="job_logo" width="60px" height="60px" alt=""></a>
-                </div>
-            </div>
-        <div class="navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Browse Jobs</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="jobs.html?category_id=1">Hospitality/Travel</a></li>
-                        <li><a class="dropdown-item" href="jobs.html?category_id=2">Agriculture/Fishing</a></li>
-                        <li><a class="dropdown-item" href="jobs.html?category_id=3">Logistics/Courier</a></li>
-                        <li><a class="dropdown-item" href="jobs.html?category_id=4">Finance/Accounting</a></li>
-                        <li><a class="dropdown-item" href="jobs.html?category_id=5">Administrative/Clerical</a></li>
-                        <li><a class="dropdown-item" href="jobs.html?category_id=6">Marketing/Advertising</a></li>
-                        <li><a class="dropdown-item" href="jobs.html?category_id=7">Construction/Architecture</a></li>
-                        <li><a class="dropdown-item" href="jobs.html?category_id=8">Management</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="jobs.html">View all categories</a></li>
-                    </ul>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="savedjobs.html">Saved Jobs</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="appliedjobs.html">Applied Jobs</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="register.html">Register</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="login.html">Login</a>
-            </li>
-        </ul>
-        </div>
+ <nav class="navbar navbar-expand-lg navbar-dark text-dark py-2">
+  <div class="container-fluid">
+    <div class="header_logocontainer">
+      <div class="headerimg">
+        <a href="index.html">
+          <img src="./src/img/job.jpg" class="job_logo" width="60px" height="60px" alt="">
+        </a>
+      </div>
     </div>
-    </nav>
+    <div class="navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Browse Jobs
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="jobs.html?category_id=1">Hospitality/Travel</a></li>
+            <li><a class="dropdown-item" href="jobs.html?category_id=2">Agriculture/Fishing</a></li>
+            <li><a class="dropdown-item" href="jobs.html?category_id=3">Logistics/Courier</a></li>
+            <li><a class="dropdown-item" href="jobs.html?category_id=4">Finance/Accounting</a></li>
+            <li><a class="dropdown-item" href="jobs.html?category_id=5">Administrative/Clerical</a></li>
+            <li><a class="dropdown-item" href="jobs.html?category_id=6">Marketing/Advertising</a></li>
+            <li><a class="dropdown-item" href="jobs.html?category_id=7">Construction/Architecture</a></li>
+            <li><a class="dropdown-item" href="jobs.html?category_id=8">Management</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="jobs.html">View all categories</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="appliedjobs.html">Applied Jobs</a>
+        </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="register.html">Register</a>
+                </li>
+       
+        <li class="nav-item" id="navbarUserStatus" style="display:none;">
+          <span class="nav-link" id="navbarStatus"></span>
+        </li>
+
+        
+        <li class="nav-item">
+          <a class="nav-link" href="login.html" id="navbarLoginBtn">Login</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <!-- -----------------------Search Bar Section -------------------- -->
     <section id="searchbar">
         <div class="bckform1">
@@ -113,18 +120,16 @@
 
 // <!-- /*--------Fetch all Jobs--------------*/ -->
 
+
 window.onload = function() {
     const searchInput = document.getElementById("jobSearch");
     const jobsContainer = document.getElementById("jobs-container");
-    const searchBtn = document.getElementById("searchBtn");
-
     let allJobs = [];
 
     // Fetch jobs (all or by category)
     const params = new URLSearchParams(window.location.search);
     const categoryId = params.get("category_id");
-    let apiUrl = "/api/jobs";
-    if (categoryId) apiUrl = `/api/jobs/${categoryId}`;
+    const apiUrl = categoryId ? `/api/jobs/category/${categoryId}` : "/api/jobs";
 
     fetch(apiUrl)
         .then(res => res.json())
@@ -137,9 +142,10 @@ window.onload = function() {
     function displayJobs(jobsArray) {
         jobsContainer.innerHTML = "";
         if (!jobsArray || jobsArray.length === 0) {
-            jobsContainer.innerHTML = "<p>No jobs found.</p>";
+            jobsContainer.innerHTML = '<p style="color: green; font-weight: bold; text-align: center; font-size: 24px;">Oops!!! No jobs found <i class="fa-regular fa-face-sad-cry"></i></p>';
             return;
         }
+
         jobsArray.forEach(job => {
             const jobDiv = document.createElement("div");
             jobDiv.classList.add("wholejob");
@@ -150,44 +156,86 @@ window.onload = function() {
                     <div class="headersub3">${job.company_name ?? "Unknown Company"}</div>
                 </div>
                 <div class="jobdetails">
-                    <div class="amount"> ${job.salary}</div>
+                    <div class="amount">${job.salary}</div>
                     <div class="dateadded"><i class="bi bi-alarm"></i><b>Added</b> ${new Date(job.published_date).toLocaleDateString('en-GB')}</div>
                     <div class="region"><i class="bi bi-geo-alt"></i>${job.location}</div>
                     <div class="deadline"><i class="bi bi-alarm"></i><b>Deadline</b> ${new Date(job.deadline).toLocaleDateString('en-GB')}</div>
                 </div>
-                 <div class="buttonsubmit">
+                <div class="buttonsubmit">
                     <div class="cvbtn1">
-                        <button type="button" class="btn btn-dark">
-                            Save Job <i class="bi bi-bookmark"></i>
-                        </button>
+                        <button type="button" class="btn btn-dark view-btn" data-job-id="${job.id}">View Job <i class="bi bi-eye"></i></button>
+                    </div>
+                    <div class="cvbtn1">
+                        <button type="button" class="btn btn-success apply-btn" data-job-id="${job.id}">Apply Now <i class="bi bi-arrow-down-right-square"></i></button>
+                    </div>
                 </div>
-                <div class="cvbtn1">
-                <a href="/jobdetails/${job.id}">
-                    <button type="button" class="btn btn-success">
-                        Apply Now <i class="bi bi-arrow-down-right-square"></i>
-                    </button>
-                </a>
-            </div>
-        </div>
             `;
 
             jobsContainer.appendChild(jobDiv);
+
+            // View Job click
+            jobDiv.querySelector('.view-btn').addEventListener('click', (e) => {
+                const jobId = e.currentTarget.getAttribute('data-job-id');
+                window.location.href = `jobdetails.html?id=${jobId}`;
+            });
+
+            // Apply Now click
+            const applyBtn = jobDiv.querySelector('.apply-btn');
+            
+            applyBtn.addEventListener('click', () => {
+                const jobId = applyBtn.dataset.jobId;
+
+                // Check login
+                fetch('/api/check-login')
+                    .then(res => res.json())
+                    .then(data => {
+                        if (!data.loggedIn) {
+                            alert('Please login to apply for jobs');
+                            window.location.href = '/login.html';
+                            return;
+                        }
+
+                        // Apply for job
+                        fetch('/api/save-job', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ job_id: jobId })
+                        })
+                        .then(res => res.json())
+                        .then(result => {
+                            if (result.ok) {
+                                applyBtn.textContent = 'Applied';
+                                applyBtn.disabled = true;
+                                applyBtn.classList.remove('btn-success');
+                                applyBtn.classList.add('btn-secondary');
+                            } else {
+                                alert(result.message);
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Error applying for job:', err);
+                            alert('Error applying for job');
+                        });
+                    });
+            });
         });
     }
 
-
-searchInput.addEventListener("input", function(event) {
-    const filterText = event.target.value.toLowerCase();
-    const filteredJobs = allJobs.filter(job =>
-        job.title.toLowerCase().includes(filterText) ||
-        (job.company_name && job.company_name.toLowerCase().includes(filterText)) ||
-        (job.location && job.location.toLowerCase().includes(filterText))
-    );
-    displayJobs(filteredJobs);
-});
-
-
+    // Search filter
+    searchInput.addEventListener("input", function(event) {
+        const filterText = event.target.value.toLowerCase();
+        const filteredJobs = allJobs.filter(job =>
+            job.title.toLowerCase().includes(filterText) ||
+            (job.company_name && job.company_name.toLowerCase().includes(filterText)) ||
+            (job.location && job.location.toLowerCase().includes(filterText))
+        );
+        displayJobs(filteredJobs);
+    });
 };
+
+
 </script>
 
+<script src="login.js"></script>
+<script src="appliedjobs.js"></script>
 </html>

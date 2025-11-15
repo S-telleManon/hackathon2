@@ -6,6 +6,9 @@ body{
 h1,#textsub{
     color: white;
 }
+#job-title{
+    color: green;
+}
   /* -- ----------Navbar CSS----------------*/
 .navbar{
     background-color: black;
@@ -65,7 +68,7 @@ h1,#textsub{
     grid-template-columns: 30% 30% 30%;
     justify-content: space-around;
     position: absolute;
-    top: 550px;
+    top: 500px;
     left: 50px;
 }
 #secondcontainer,#firstcontainer,#thirdcontainer{
@@ -87,17 +90,24 @@ h1,#textsub{
  /* -------------Latest Jobs Parts---------*/
 .secondpartcontainer {
     display: grid;
-    grid-template-columns: 4fr 1fr; /* roughly 80% / 20% */
+    grid-template-columns: 4fr 1fr; 
     grid-auto-rows: min-content;
-    gap: 10px; /* space between columns and rows */
-    max-width: 1200px;
-    margin: 50px auto; /* centered with spacing from top */
-    padding: 20px;
+    gap: 10px;
+    width: 1000px;
+    margin: 0 auto; /* remove top margin for precise positioning */
+    padding: 0px;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
     border: 1px solid #333333;
     background-color: #fff;
+
+    /* Overlay and position */
+    position: absolute; /* or fixed if you want it to stay on screen while scrolling */
+    top: 750px;         /* distance from top of viewport */
+    left: 50%;          /* center horizontally */
+    transform: translateX(-50%); /* center precisely */
+    z-index: 9999;      /* ensure it is above other content */
 }
 .btn{
     width: 125px;
@@ -110,14 +120,19 @@ h1,#textsub{
     text-align: center;
     padding-top: 10PX;
 }
-.joboppor,.cvbtn{
+.joboppor{
     border-bottom: 1px groove #cccccc;
     background-color: white;
+}
+.cvbtn{
+    border-bottom: 1px groove #cccccc;
+    background-color: white;
+    justify-items: center;
 }
 .headersub{
     font-size: large;
     font-weight: bold;
-    margin: 0px 10px 0px 10px;
+    margin: 0px 10px 0px 6px;
 }
 .headersub1{
     color: rgb(25, 135, 84);
@@ -394,15 +409,15 @@ h1,#textsub{
  transform: scale(1.05);
  transition: transform 0.3s ease
 }
-.wholejob1{
+#job-details {
     background: #ffffff;
     border: 1px solid #333333;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
     width: 800px;
-    padding-bottom: 30px;
+    padding: 20px;          /* inner spacing */
     position: relative;
-    padding-left: 10px;
+    margin: -20px auto 80px auto;  /* top 40px, bottom 80px, left/right auto */
 }
 
 .buttonsubmit{
@@ -838,9 +853,31 @@ margin: 20px;
 footer {
 display: none;
 }
-
+}
 #jobs-container {
     padding: px;
     max-width: 800px;
     margin: 0 auto; /* center the job list */
 }
+
+#applyBtn { 
+    background-color: #2e7d32;
+    color: #ffffff;
+    padding: 10px;     /* increase padding for bigger button */
+    margin: 20px auto;      /* center horizontally and add space above/below */
+    border: none;
+    border-radius: 8px;     /* slightly bigger radius */
+    cursor: pointer;
+    display: block;         /* required for margin auto to work */
+    font-size: 18px;        /* larger text */
+    min-width: 300px;       /* make the button wider */
+    text-align: center;
+}
+#headerApplication {
+  margin-top: 100px;
+    padding: 10px;
+    max-width: 800px;
+    color: green;
+  
+}
+
